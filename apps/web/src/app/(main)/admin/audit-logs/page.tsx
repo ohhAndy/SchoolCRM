@@ -80,7 +80,7 @@ export default function AuditLogsPage() {
     async function checkAccess() {
       const user = await getCurrentUserClient();
       if (!user || user.role !== "super_admin") {
-        router.replace("/access-denied");
+        router.replace("/forbidden");
       } else {
         fetchLogs();
       }

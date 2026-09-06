@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { LocationSwitcher } from "@/components/LocationSwitcher";
+import { TrialRequestsBadge } from "./TrialRequestsBadge";
 
 export async function AppHeader() {
   const user = await getCurrentUser();
@@ -18,7 +19,7 @@ export async function AppHeader() {
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur dark:bg-slate-950/80">
-      <div className="mx-auto flex max-w-5xl items-center gap-2 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3">
         <Link href="/dashboard" className="flex items-center gap-2">
           <Image
             src="/NoBGLogoSQ.svg"
@@ -111,15 +112,44 @@ export async function AppHeader() {
             </Link>
           </PermissionGate>
           <PermissionGate
-            allowedRoles={["super_admin", "admin"]}
+            allowedRoles={["super_admin", "admin", "manager"]}
             currentRole={user.role}
           >
-            <Link
-              href="/admin/communications"
-              className="text-sm font-medium hover:text-blue-600"
-            >
-              Communications
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center text-sm font-medium hover:text-blue-600 outline-none gap-0.5">
+                <span>Admin</span>
+                {["super_admin", "admin"].includes(user.role) && (
+                  <TrialRequestsBadge />
+                )}
+                <ChevronDown className="ml-1 h-3 w-3 opacity-60" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                <PermissionGate
+                  allowedRoles={["super_admin", "admin"]}
+                  currentRole={user.role}
+                >
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/dashboard?tab=requests"
+                      className="flex items-center justify-between w-full cursor-pointer font-medium"
+                    >
+                      <span>Trial Requests</span>
+                      <TrialRequestsBadge />
+                    </Link>
+                  </DropdownMenuItem>
+                </PermissionGate>
+                <DropdownMenuItem asChild>
+                  <Link href="/trials" className="cursor-pointer">
+                    Scheduled Trials
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/admin/communications" className="cursor-pointer">
+                    Communications
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </PermissionGate>
           <LocationSwitcher />
           <UserMenu user={user} />
