@@ -1,4 +1,4 @@
-import { PrintButton } from "./PrintButton";
+import { PrintButton } from "../roster";
 
 export function SlotHeader({
   title,

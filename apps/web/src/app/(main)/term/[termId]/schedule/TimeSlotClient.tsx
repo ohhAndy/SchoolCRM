@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FULL_DAY_LABELS, formatTimeRange } from "@/lib/schedule/slots";
-import { AddClassDialog } from "@/components/schedule/AddClassDialog";
+import { AddClassDialog } from "@/components/schedule/dialogs";
 import { DetailedTimeSlot } from "@/lib/api/server/schedule";
 
 import Link from "next/link";

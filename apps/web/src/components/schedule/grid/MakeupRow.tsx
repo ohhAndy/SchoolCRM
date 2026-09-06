@@ -1,3 +1,5 @@
+"use client";
+
 import { MakeupLite } from "@school/shared-types";
 import { LEVEL_MAP } from "@/lib/constants/levels";
 import Link from "next/link";
@@ -7,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { getMakeUpStatusColour, calcAge } from "@/lib/utils/student-helpers";
 
 const MAKEUP_OPTIONS = [

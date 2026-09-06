@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +13,7 @@ import { Level } from "@/lib/api/client/curriculum";
 import { cn } from "@/lib/utils";
 import { HelpCircle, CalendarCheck, CalendarClock } from "lucide-react";
 import Link from "next/link";
-import RemarksDialog from "./RemarksDialog";
+import RemarksDialog from "../dialogs/RemarksDialog";
 import { StaffRole, hasMinRole } from "@/lib/auth/permissions";
 import {
   Tooltip,

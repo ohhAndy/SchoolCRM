@@ -1,3 +1,5 @@
+"use client";
+
 import type {
   MakeupLite,
   RosterResponse,
@@ -8,7 +10,7 @@ import { toast } from "sonner";
 import { StudentRow } from "./StudentRow";
 import { MakeupRow } from "./MakeupRow";
 import { TrialRow } from "./TrialRow";
-import { PermissionGate } from "../auth/PermissionGate";
+import { PermissionGate } from "@/components/auth/PermissionGate";
 import { CurrentUser } from "@/lib/auth/user";
 import { hasPermission } from "@/lib/auth/permissions";
 

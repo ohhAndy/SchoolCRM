@@ -7,8 +7,8 @@ import { updateOfferingInfo } from "@/lib/api/client/schedule";
 import { Input } from "@/components/ui/input";
 import { updateReportCardStatus } from "@/lib/api/client/enrollments";
 import { useRouter } from "next/navigation";
-import type { RosterItem } from "@/components/schedule/DailyClassRoster";
-import { DailyClassRoster } from "@/components/schedule/DailyClassRoster";
+import type { RosterItem } from "@/components/schedule/roster";
+import { DailyClassRoster } from "@/components/schedule/roster";
 import { StaffRole } from "@/lib/auth/permissions";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -25,7 +25,7 @@ import {
   upsertAttendance,
 } from "@/lib/api/client/attendance";
 import { updateTrialStatus } from "@/lib/api/client/trial";
-import { AssignInstructorDialog } from "@/components/schedule/AssignInstructorDialog";
+import { AssignInstructorDialog } from "@/components/schedule/dialogs";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { useState } from "react";

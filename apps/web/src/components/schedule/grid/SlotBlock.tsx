@@ -10,19 +10,21 @@ import {
 } from "@/lib/api/client/attendance";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-import { Button } from "../ui/button";
-import { EnrollStudentDialog } from "./EnrollStudentDialog";
-import { ScheduleMakeupDialog } from "./ScheduleMakeUpDialog";
+import { Button } from "@/components/ui/button";
+import {
+  EnrollStudentDialog,
+  ScheduleMakeupDialog,
+  OfferingInfoDialog as OfferingDialog,
+  AssignInstructorDialog,
+  ScheduleTrialDialog,
+  ConvertTrialDialog,
+} from "../dialogs";
 import { CurrentUser } from "@/lib/auth/user";
-import { PermissionGate } from "../auth/PermissionGate";
+import { PermissionGate } from "@/components/auth/PermissionGate";
 import { updateStudentNotes } from "@/lib/api/client/students";
 import { Loader2, Users } from "lucide-react";
-import OfferingDialog from "./OfferingInfoDialog";
 import { updateOfferingInfo } from "@/lib/api/client/schedule";
-import { AssignInstructorDialog } from "./AssignInstructorDialog";
-import { ScheduleTrialDialog } from "./ScheduleTrialDialog";
 import { updateTrialStatus } from "@/lib/api/client/trial";
-import { ConvertTrialDialog } from "./ConvertTrialDialog";
 import { Trash2 } from "lucide-react";
 import { deleteOffering } from "@/lib/api/client/schedule";
 import { useSlotDialogs } from "./useSlotDialogs";

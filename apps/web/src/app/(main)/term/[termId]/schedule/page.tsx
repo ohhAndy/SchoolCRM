@@ -7,8 +7,8 @@ import {
 } from "@/lib/api/server/schedule";
 import ScheduleGrid from "./ScheduleGrid";
 import { groupByOffering } from "@/lib/schedule/transform";
-import { SlotBlock } from "@/components/schedule/SlotBlock";
-import { AddFlexibleClassDialog } from "@/components/schedule/AddFlexibleClassDialog";
+import { SlotBlock } from "@/components/schedule/grid";
+import { AddFlexibleClassDialog } from "@/components/schedule/dialogs";
 import { getCurrentUser } from "@/lib/auth/user";
 import { PermissionGate } from "@/components/auth/PermissionGate";
 import { redirect } from "next/navigation";

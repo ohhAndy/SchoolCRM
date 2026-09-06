@@ -1,17 +1,18 @@
 import { getSlotPage } from "@/lib/api/server/schedule";
 import { weekdayName, groupByOffering } from "@/lib/schedule/transform";
 import type { SlotPage } from "@school/shared-types";
-import { SlotHeader } from "@/components/schedule/SlotHeader";
-import { SlotBlockGrid } from "@/components/schedule/SlotBlockGrid";
+import { SlotHeader, SlotBlockGrid, SlotNavigator } from "@/components/schedule/grid";
 import PreviousButton from "@/components/nav/PreviousButton";
 import NextButton from "@/components/nav/NextButton";
 import { getCurrentUser } from "@/lib/auth/user";
 import { redirect } from "next/navigation";
-import { AddClassDialog } from "@/components/schedule/AddClassDialog";
+import { hasMinRole } from "@/lib/auth/permissions";
+import { AddClassDialog } from "@/components/schedule/dialogs";
 import { PermissionGate } from "@/components/auth/PermissionGate";
-import { SlotNavigator } from "@/components/schedule/SlotNavigator";
 import { formatTimeRange } from "@/lib/schedule/slots";
 import { DAY_LABELS } from "@/lib/schedule/slots";
+
+export const dynamic = "force-dynamic";
 
 // Dynamic metadata based on numeric weekday
 export const generateMetadata = async ({
@@ -39,6 +40,10 @@ export default async function SlotPageView({
   const user = await getCurrentUser();
   if (!user) {
     redirect("/login");
+  }
+
+  if (!hasMinRole(user.role, "manager")) {
+    redirect("/forbidden");
   }
 
   const resolvedParams = await params;

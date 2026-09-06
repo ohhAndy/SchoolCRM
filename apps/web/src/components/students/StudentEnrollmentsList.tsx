@@ -15,8 +15,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { TransferEnrollmentDialog } from "@/components/schedule/TransferEnrollmentDialog";
-import { ManageSkipsDialog } from "@/components/schedule/ManageSkipsDialog";
+import {
+  TransferEnrollmentDialog,
+  ManageSkipsDialog,
+} from "@/components/schedule/dialogs";
 import { ReportCardForm } from "@/components/report-cards/ReportCardForm";
 import { GrantTokensDialog } from "./GrantTokensDialog";
 import { deleteEnrollment } from "@/lib/api/client/schedule";

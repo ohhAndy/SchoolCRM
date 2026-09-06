@@ -12,8 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { TransferEnrollmentDialog } from "@/components/schedule/TransferEnrollmentDialog";
-import { ManageSkipsDialog } from "@/components/schedule/ManageSkipsDialog";
+import {
+  TransferEnrollmentDialog,
+  ManageSkipsDialog,
+} from "@/components/schedule/dialogs";
 import { deleteEnrollment } from "@/lib/api/client/schedule";
 import { StaffRole } from "@/lib/auth/permissions";
 import { GuardianStudentCard } from "./GuardianStudentCard";

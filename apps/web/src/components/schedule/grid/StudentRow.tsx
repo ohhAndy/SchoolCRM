@@ -1,3 +1,5 @@
+"use client";
+
 import { Row } from "./grid-types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,14 +9,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
-import RemarksDialog from "./RemarksDialog";
+} from "@/components/ui/tooltip";
+import RemarksDialog from "../dialogs/RemarksDialog";
 import {
   AlertCircle,
   CheckCircle,
@@ -25,8 +27,8 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { calcAge, markClass, getReportCardStatusConfig } from "@/lib/utils/student-helpers";
-import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
-import { ReportCardForm } from "../report-cards/ReportCardForm";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ReportCardForm } from "@/components/report-cards/ReportCardForm";
 import { useState } from "react";
 import { StaffRole } from "@/lib/auth/permissions";
 

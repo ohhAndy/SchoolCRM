@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { TrialLite } from "@school/shared-types";
 import {
@@ -5,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { getTrialStatusColour } from "@/lib/utils/student-helpers";
 
 const TRIAL_OPTIONS = [
