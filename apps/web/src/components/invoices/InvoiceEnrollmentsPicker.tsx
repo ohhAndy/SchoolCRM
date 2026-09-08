@@ -78,6 +78,14 @@ export function InvoiceEnrollmentsPicker({
               enrollmentAmounts[enrollment.id] ??
               enrollment.suggestedAmount.toString();
 
+            const skipCount = enrollment.enrollmentSkips?.length ?? 0;
+            const totalSessions = enrollment.totalSessions ?? 0;
+            const billableSessions = Math.max(0, totalSessions - skipCount);
+            const sessionText =
+              skipCount > 0
+                ? `${billableSessions} of ${totalSessions} classes`
+                : `${totalSessions} ${totalSessions === 1 ? "class" : "classes"}`;
+
             return (
               <div
                 key={enrollment.id}
@@ -105,14 +113,13 @@ export function InvoiceEnrollmentsPicker({
                       {enrollment.offering.term.name}
                       {enrollment.offering.term.location?.name &&
                         ` (${enrollment.offering.term.location.name})`}{" "}
-                      • {enrollment.classRatio}
+                      • {enrollment.classRatio} • {sessionText}
                     </p>
-                    {enrollment.enrollmentSkips &&
-                      enrollment.enrollmentSkips.length > 0 && (
-                        <p className="text-xs text-amber-600">
-                          {enrollment.enrollmentSkips.length} skipped session(s)
-                        </p>
-                      )}
+                    {skipCount > 0 && (
+                      <p className="text-xs text-amber-600">
+                        {skipCount} skipped session(s)
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2 ml-4">
