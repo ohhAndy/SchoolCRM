@@ -6,7 +6,7 @@ import { WhatToExpect } from "@/components/trial/WhatToExpect";
 export const metadata: Metadata = {
   title: "Book a Free Trial — Swan Swim School",
   description:
-    "Book a free trial swim lesson at Swan Swim School. Fill out a quick form and we'll get back to you within 24 hours.",
+    "Book a free trial swim lesson at Swan Swim School. Fill out a quick form and we'll get back to you as soon as possible.",
 };
 
 export default function TrialPage() {
@@ -41,8 +41,8 @@ export default function TrialPage() {
             Book a Free Trial Lesson
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Tell us about your child and select your preferred branch & dates.
-            We will confirm your trial slot within 24 hours!
+            Tell us about the swimmer and select your preferred branch & dates.
+            We will confirm your trial slot as soon as possible!
           </p>
         </div>
       </section>
@@ -50,7 +50,7 @@ export default function TrialPage() {
       {/* Form Section & What to Expect */}
       <section className="py-16 bg-white">
         <div className="section-container max-w-4xl">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <TrialForm />
           </div>
           <WhatToExpect />

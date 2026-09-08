@@ -6,37 +6,39 @@ export function WhatToExpect() {
     {
       step: "01",
       title: "Arrive 10 Minutes Early",
-      desc: "Check in at the front desk. Our friendly staff will show you to our private family changing suites and answer any initial questions.",
+      desc: "Check in at the front desk. Our friendly staff will show you to our change rooms and answer any initial questions.",
       icon: Clock,
       color: "bg-brand-50 text-brand-600",
     },
     {
       step: "02",
-      title: "Meet Your Instructor",
-      desc: "Your child meets their coach poolside. We establish instant rapport and walk gently into our 90°F heated teaching pool.",
+      title: "Meet Your Supervisor",
+      desc: "You will meet our deck supervisor, who will introduce your swimmer to their instructor and help them get settled before heading into the pool.",
       icon: Smile,
       color: "bg-teal-50 text-teal-600",
     },
     {
       step: "03",
-      title: "30-Min Low-Pressure Assessment",
-      desc: "A fun, supportive class where we assess breath control, floating, and stroke mechanics through playful drills.",
+      title: "Skill Assessment Class",
+      desc: "Your swimmer joins a regular class where our coaches assess their comfort, water skills, and level to recommend the right class fit.",
       icon: Sparkles,
       color: "bg-amber-50 text-amber-600",
     },
     {
       step: "04",
-      title: "Custom Skill Plan & Placement",
-      desc: "Receive immediate feedback, a personalized level recommendation, and exact class time options for the upcoming term.",
+      title: "Skill Recommendation & Placement",
+      desc: "Receive direct feedback from our team, a personalized level recommendation, and class time options that fit your schedule.",
       icon: CheckCircle2,
       color: "bg-indigo-50 text-indigo-600",
     },
   ];
 
   const whatToBring = [
-    "Swimsuit & Towel",
-    "Goggles (optional for beginners)",
-    "Swim Cap (recommended for long hair)",
+    "Bathing Suit",
+    "Towel",
+    "Pool Shoes / Flip Flops",
+    "Goggles (sold on site)",
+    "Swim Cap (sold on site)",
     "Swim Diaper (for toddlers under 3)",
   ];
 
@@ -89,7 +91,7 @@ export function WhatToExpect() {
             What to Bring with You:
           </h4>
           <p className="text-slate-600 text-xs sm:text-sm">
-            Just the essentials — we provide all flotation aids, kickboards, and teaching equipment.
+            Just the essentials — we provide all flotation aids, kickboards, and teaching equipment. Goggles and swim caps are also available for purchase on site at the front desk.
           </p>
         </div>
 

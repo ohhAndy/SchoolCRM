@@ -1,9 +1,32 @@
-import { Controller, Get, Post, Body, Req, Ip } from "@nestjs/common";
+import { Controller, Get, Post, Body, Req, Ip, Query } from "@nestjs/common";
 import { PublicService } from "./public.service";
 import { Public } from "../auth/public.decorator";
 import { Throttle } from "@nestjs/throttler";
 import { Request } from "express";
-import { SubmitTrialRequestDto } from "./dto/trial-request.dto";
+import {
+  SubmitTrialRequestDto,
+  GetTrialDatesQueryDto,
+} from "./dto/trial-request.dto";
+
+function getClientIp(req: Request, nestIp?: string): string | undefined {
+  // 1. Cloudflare header
+  const cfIp = req.headers["cf-connecting-ip"] as string | undefined;
+  if (cfIp) return cfIp.trim();
+
+  // 2. Standard X-Forwarded-For (client IP is the first in the chain)
+  const forwarded = req.headers["x-forwarded-for"] as string | undefined;
+  if (forwarded) {
+    const client = forwarded.split(",")[0]?.trim();
+    if (client) return client;
+  }
+
+  // 3. Nginx / reverse proxy X-Real-IP header
+  const realIp = req.headers["x-real-ip"] as string | undefined;
+  if (realIp) return realIp.trim();
+
+  // 4. Fallback to NestJS / Express resolved IP or socket remoteAddress
+  return nestIp || req.ip || req.socket?.remoteAddress || undefined;
+}
 
 @Controller("public")
 @Public()
@@ -12,12 +35,12 @@ export class PublicController {
 
   /**
    * GET /public/trial-dates
-   * Returns available trial dates for the next 30 days.
+   * Returns available trial dates for the next 30 days, optionally filtered by location.
    * No auth required.
    */
   @Get("trial-dates")
-  async getTrialDates() {
-    return this.publicService.getAvailableTrialDates();
+  async getTrialDates(@Query() query: GetTrialDatesQueryDto) {
+    return this.publicService.getAvailableTrialDates(query);
   }
 
   /**
@@ -34,7 +57,7 @@ export class PublicController {
   ) {
     return this.publicService.submitTrialRequest({
       ...body,
-      ipAddress: ip || (req.headers["x-forwarded-for"] as string) || undefined,
+      ipAddress: getClientIp(req, ip),
     });
   }
 
