@@ -36,6 +36,7 @@ import { LevelsModule } from './levels/levels.module';
 import { SkillsModule } from './skills/skills.module';
 import { ReportCardsModule } from './report-cards/report-cards.module';
 import { PublicModule } from './public/public.module';
+import { TrialRequestsModule } from './trial-requests/trial-requests.module';
 
 @Module({
   imports: [
@@ -81,6 +82,7 @@ import { PublicModule } from './public/public.module';
     SkillsModule,
     ReportCardsModule,
     PublicModule,
+    TrialRequestsModule,
   ],
   providers: [
     {

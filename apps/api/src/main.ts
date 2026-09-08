@@ -13,6 +13,10 @@ async function bootstrap() {
   app.use(json({ limit: "50mb" }));
   app.use(urlencoded({ extended: true, limit: "50mb" }));
 
+  // Trust reverse proxy (Cloudflare, Vercel, Nginx, ALB) for accurate client IP resolution & rate limiting
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set("trust proxy", 1);
+
   const httpAdapter = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
   app.useGlobalPipes(new ZodValidationPipe());

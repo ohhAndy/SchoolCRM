@@ -13,6 +13,7 @@ export type MockPrismaService = {
     delete: jest.Mock;
     deleteMany: jest.Mock;
     count: jest.Mock;
+    groupBy: jest.Mock;
     upsert: jest.Mock;
   };
 } & {
@@ -44,6 +45,7 @@ export const createPrismaMock = (): MockPrismaService => {
           delete: jest.fn(),
           deleteMany: jest.fn(),
           count: jest.fn(),
+          groupBy: jest.fn().mockResolvedValue([]),
           upsert: jest.fn(),
         };
       }
