@@ -5,10 +5,13 @@ import { getCurrentUser } from "@/lib/auth/user";
 import { getAllTerms } from "@/lib/api/server/schedule";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { format } from "date-fns";
 import { PermissionGate } from "@/components/auth/PermissionGate";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import { todayInToronto } from "@/lib/date";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TrialRequestsQueue } from "@/components/dashboard/TrialRequestsQueue";
+import { TrialRequestsBadge } from "@/components/layout/TrialRequestsBadge";
 
 export const metadata: Metadata = {
   title: "Dashboard | Swan Swim Management",
@@ -74,7 +77,68 @@ export default async function DashboardPage({ searchParams }: Props) {
       ? sortedTerms[currentIndex + 1]
       : null; // Older term (higher index)
 
-  const today = format(new Date(), "yyyy-MM-dd");
+  const today = todayInToronto();
+  // TODO: Include 'manager' role when trial request review workflow is rolled out to branch managers
+  const isAdmin = ["super_admin", "admin"].includes(user?.role || "");
+  const requestedTab = resolvedSearchParams?.tab as string | undefined;
+  const initialTab = isAdmin && requestedTab === "requests" ? "requests" : "stats";
+
+  const statsSectionContent = (
+    <>
+      <p className="text-center">Here’s your dashboard overview.</p>
+
+      {termToUse &&
+        ["super_admin", "admin", "manager"].includes(user?.role || "") && (
+          <StatsOverview
+            termId={termToUse.id}
+            termName={termToUse.name}
+            prevTermId={prevTerm?.id}
+            nextTermId={nextTerm?.id}
+          />
+        )}
+
+      {termToUse && (
+        <div className="pt-4 border-t">
+          <Button
+            asChild
+            variant="outline"
+            className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white"
+          >
+            <Link href={`/schedule/date/${today}`}>
+              <Calendar className="mr-2 h-4 w-4" /> View Today&apos;s Schedule
+            </Link>
+          </Button>
+          <PermissionGate
+            allowedRoles={["super_admin", "admin", "manager"]}
+            currentRole={user.role}
+          >
+            <Button
+              asChild
+              variant="outline"
+              className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white mt-2"
+            >
+              <Link href={`/term/${termToUse.id}/availability`}>
+                View Availability
+              </Link>
+            </Button>
+          </PermissionGate>
+
+          <PermissionGate
+            allowedRoles={["super_admin", "admin", "manager", "supervisor"]}
+            currentRole={user.role}
+          >
+            <Button
+              asChild
+              variant="outline"
+              className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white mt-2"
+            >
+              <Link href="/tasks">View Tasks</Link>
+            </Button>
+          </PermissionGate>
+        </div>
+      )}
+    </>
+  );
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-start p-4 pt-16">
@@ -85,57 +149,33 @@ export default async function DashboardPage({ searchParams }: Props) {
           </CardTitle>
         </CardHeader>
         <CardContent className="text-gray-600 mt-4 space-y-4">
-          <p className="text-center">Here’s your dashboard overview.</p>
+          {isAdmin ? (
+            <Tabs defaultValue={initialTab} className="w-full">
+              <div className="flex justify-center mb-6">
+                <TabsList className="grid grid-cols-2 w-full max-w-sm">
+                  <TabsTrigger value="stats" className="text-sm font-semibold">
+                    Statistics
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="requests"
+                    className="text-sm font-semibold flex items-center justify-center gap-1.5"
+                  >
+                    <span>Trial Requests</span>
+                    <TrialRequestsBadge />
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
-          {termToUse &&
-            ["super_admin", "admin", "manager"].includes(user?.role || "") && (
-              <StatsOverview
-                termId={termToUse.id}
-                termName={termToUse.name}
-                prevTermId={prevTerm?.id}
-                nextTermId={nextTerm?.id}
-              />
-            )}
+              <TabsContent value="stats" className="space-y-4">
+                {statsSectionContent}
+              </TabsContent>
 
-          {termToUse && (
-            <div className="pt-4 border-t">
-              <Button
-                asChild
-                variant="outline"
-                className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white"
-              >
-                <Link href={`/schedule/date/${today}`}>
-                  <Calendar className="mr-2 h-4 w-4" /> View Today&apos;s Schedule
-                </Link>
-              </Button>
-              <PermissionGate
-                allowedRoles={["super_admin", "admin", "manager"]}
-                currentRole={user.role}
-              >
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white mt-2"
-                >
-                  <Link href={`/term/${termToUse.id}/availability`}>
-                    View Availability
-                  </Link>
-                </Button>
-              </PermissionGate>
-
-              <PermissionGate
-                allowedRoles={["super_admin", "admin", "manager", "supervisor"]}
-                currentRole={user.role}
-              >
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full bg-[#1c82c5] hover:bg-[#156a9e] text-white mt-2"
-                >
-                  <Link href="/tasks">View Tasks</Link>
-                </Button>
-              </PermissionGate>
-            </div>
+              <TabsContent value="requests" className="space-y-4 pt-2">
+                <TrialRequestsQueue />
+              </TabsContent>
+            </Tabs>
+          ) : (
+            statsSectionContent
           )}
         </CardContent>
       </Card>

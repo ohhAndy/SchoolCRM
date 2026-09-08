@@ -21,6 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CheckCircle2, XCircle, Clock, Percent, Pencil } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { EditNotesDialog } from "./EditNotesDialog";
 
 interface UpcomingTrial {
@@ -188,11 +189,23 @@ export default function TrialsPage() {
 
   return (
     <div className="container mx-auto py-8 max-w-6xl space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Trials Management</h1>
-        <p className="text-muted-foreground">
-          Track upcoming trials and conversion performance.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Trials Management</h1>
+          <p className="text-muted-foreground">
+            Track upcoming trials and conversion performance.
+          </p>
+        </div>
+        {/* TODO: Enable manager access to trial requests queue when role permissions are expanded to managers */}
+        <Button
+          asChild
+          variant="outline"
+          className="border-blue-200 text-blue-700 hover:bg-blue-50 self-start sm:self-auto"
+        >
+          <Link href="/dashboard?tab=requests">
+            View Incoming Trial Requests
+          </Link>
+        </Button>
       </div>
 
       {stats && (
