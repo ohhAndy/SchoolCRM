@@ -103,10 +103,11 @@ export class TermsController {
   @Get("schedule/date/:date")
   async getDailySchedule(
     @Param("date") date: string,
+    @Query("locationId") queryLocationId?: string,
     @CurrentLocationId() locationId?: string,
   ) {
     return this.termScheduleService.getDailySchedule(
-      locationId ?? null,
+      queryLocationId || locationId || null,
       date,
     );
   }

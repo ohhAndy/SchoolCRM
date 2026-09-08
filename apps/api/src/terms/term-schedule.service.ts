@@ -625,9 +625,11 @@ export class TermScheduleService {
 
     const offerings = await this.prisma.classOffering.findMany({
       where: {
-        term: {
-          OR: [{ locationId: locationId ?? null }, { locationId: null }],
-        },
+        term: locationId
+          ? {
+              OR: [{ locationId }, { locationId: null }],
+            }
+          : undefined,
         sessions: { some: { date: targetDate } },
       },
       select: {

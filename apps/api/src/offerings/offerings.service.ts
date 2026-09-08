@@ -189,12 +189,12 @@ export class OfferingsService {
 
         // Advance to first matching weekday
         while (cur.getUTCDay() !== data.weekday) {
-          cur.setDate(cur.getDate() + 1);
+          cur.setUTCDate(cur.getUTCDate() + 1);
         }
 
         while (cur <= end) {
           dates.push(new Date(cur));
-          cur.setDate(cur.getDate() + 7);
+          cur.setUTCDate(cur.getUTCDate() + 7);
         }
 
         if (dates.length > 0) {

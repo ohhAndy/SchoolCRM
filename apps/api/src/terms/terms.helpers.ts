@@ -10,7 +10,7 @@ export function* weeklyDates(start: Date, end: Date, weekday: number) {
 
   // Advance to first matching weekday (UTC)
   while (cur.getUTCDay() !== weekday) {
-    cur.setDate(cur.getDate() + 1);
+    cur.setUTCDate(cur.getUTCDate() + 1);
   }
 
   const endKey = getUTCDayKey(end);
@@ -20,7 +20,7 @@ export function* weeklyDates(start: Date, end: Date, weekday: number) {
 
     yield new Date(cur); // Returns a new Date object with same time
 
-    cur.setDate(cur.getDate() + 7);
+    cur.setUTCDate(cur.getUTCDate() + 7);
   }
 }
 
